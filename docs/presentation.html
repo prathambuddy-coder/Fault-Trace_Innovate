@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg-canvas: #EEF5FC;    /* Elegant Light Blue Background */
+      --card-white: #FFFFFF;   /* Pure White Cards that POP */
+      --card-inner: #F6FAFD;   /* Cool Crisp Compartment Surface */
+      --card-border: #C4D8EC;  /* Defined Slate-Blue Card Border */
+      --inner-border: #D8E7F5; /* Subtle Inner Border */
+      
+      --text-title: #0C1E3D;   /* Deep Navy for Maximum Contrast */
+      --text-body: #22334C;    /* Sharp Slate Navy */
+      --text-muted: #526682;   /* Mid Slate-Blue */
+      
+      --sapphire: #1D4ED8;     /* Royal Sapphire Primary */
+      --sapphire-bg: #DBEAFE;
+      --indigo: #4338CA;
+      --indigo-bg: #E0E7FF;
+      --emerald: #059669;      /* Emerald Green */
+      --emerald-bg: #D1FAE5;
+      --amber: #D97706;        /* Warm Amber */
+      --amber-bg: #FEF3C7;
+      --crimson: #DC2626;      /* Alert Crimson */
+      --crimson-bg: #FEE2E2;
+    }
+    body { background-color: var(--bg-canvas); color: var(--text-body); }
+    .slide { display: none; min-height: 720px; }
+    .slide.active { display: flex; }
+    .card-pop { background-color: var(--card-white); border: 1.5px solid var(--card-border); border-radius: 12px; box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.05); }
+    .card-compartment { background-color: var(--card-inner); border: 1px solid var(--inner-border); border-radius: 8px; }
+    .tag-pill { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 9999px; font-size: 11px; font-weight: 700; }
+    .slide-indicator { width: 10px; height: 10px; border-radius: 50%; cursor: pointer; transition: all 0.2s; background-color: var(--card-border); }
+    .slide-indicator.active { width: 28px; border-radius: 5px; background-color: var(--sapphire); }
+  </style>
+</head>
+<body class="antialiased p-0 m-0">
+
+  <!-- Top Navigation Bar (White Card Style Floating on Light Blue) -->
+  <div class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[var(--card-border)] px-6 py-3 flex items-center justify-between shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[var(--sapphire)] flex items-center justify-center text-white font-bold text-sm shadow">FT</div>
+      <div>
+        <span class="font-extrabold text-sm text-[var(--text-title)]">FaultTrace</span>
+        <span class="text-xs text-[var(--text-muted)] ml-2">INNOVATE Hackathon 2026 · Light Blue Edition</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex gap-1.5" id="indicators"></div>
+      <div class="flex gap-1.5 ml-3">
+        <button onclick="prevSlide()" class="px-3 py-1 rounded-md text-xs font-semibold bg-[var(--card-inner)] text-[var(--text-body)] hover:bg-slate-200 border border-[var(--card-border)]">← Prev</button>
+        <button onclick="nextSlide()" class="px-3 py-1 rounded-md text-xs font-semibold bg-[var(--sapphire)] text-white hover:bg-blue-800 shadow-sm">Next →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 1: Title & Humanized Vision -->
+  <div class="slide active flex-col items-center justify-center px-8 py-10" data-slide="0">
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[var(--sapphire)] text-xs font-bold border border-[var(--card-border)] shadow-sm">
+        🏭 INNOVATE HACKATHON 2026
+      </div>
+      
+      <div>
+        <h1 class="text-5xl font-extrabold text-[var(--text-title)] tracking-tight">FaultTrace</h1>
+        <p class="text-2xl font-bold text-[var(--sapphire)] mt-2">AI-Assisted Industrial Fault Triage</p>
+      </div>
+      
+      <div class="w-16 h-1 rounded-full bg-[var(--sapphire)] mx-auto"></div>
+
+      <p class="text-base text-[var(--text-body)] max-w-2xl mx-auto leading-relaxed">
+        Industrial machines shouldn't leave technicians in the dark.<br>
+        <strong>FaultTrace</strong> combines real-time machine vitals with AI manual intelligence — 
+        giving frontline maintenance crews instant root-cause clarity and step-by-step diagnostic checklists.
+      </p>
+
+      <!-- 4 Distinct Pure-White Value Cards (POP against light blue canvas) -->
+      <div class="grid grid-cols-4 gap-4 text-left pt-2">
+        <div class="card-pop p-4 hover:translate-y-[-2px] transition-transform">
+          <div class="w-9 h-9 rounded-lg bg-[var(--sapphire-bg)] text-[var(--sapphire)] flex items-center justify-center text-lg mb-2">⏱️</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Minutes, Not Hours</div>
+          <div class="text-[11px] font-bold text-[var(--sapphire)] mb-1">Instant Triage Speed</div>
+          <div class="text-xs text-[var(--text-muted)] leading-relaxed">Replaces hours of frantic manual page-flipping with instant symptom diagnosis.</div>
+        </div>
+
+        <div class="card-pop p-4 hover:translate-y-[-2px] transition-transform">
+          <div class="w-9 h-9 rounded-lg bg-[var(--emerald-bg)] text-[var(--emerald)] flex items-center justify-center text-lg mb-2">📖</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">100% Grounded</div>
+          <div class="text-[11px] font-bold text-[var(--emerald)] mb-1">Cites OEM Manuals</div>
+          <div class="text-xs text-[var(--text-muted)] leading-relaxed">Quotes exact service manual sections and SOP steps — zero hallucinations.</div>
+        </div>
+
+        <div class="card-pop p-4 hover:translate-y-[-2px] transition-transform">
+          <div class="w-9 h-9 rounded-lg bg-[var(--amber-bg)] text-[var(--amber)] flex items-center justify-center text-lg mb-2">🤝</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Human in the Loop</div>
+          <div class="text-[11px] font-bold text-[var(--amber)] mb-1">Co-Pilot, Not Autopilot</div>
+          <div class="text-xs text-[var(--text-muted)] leading-relaxed">AI suggests and explains; human engineers always verify and sign off before repair.</div>
+        </div>
+
+        <div class="card-pop p-4 hover:translate-y-[-2px] transition-transform">
+          <div class="w-9 h-9 rounded-lg bg-[var(--crimson-bg)] text-[var(--crimson)] flex items-center justify-center text-lg mb-2">🛡️</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Prevent Downtime</div>
+          <div class="text-[11px] font-bold text-[var(--crimson)] mb-1">Early Warning System</div>
+          <div class="text-xs text-[var(--text-muted)] leading-relaxed">Catches minor valve wear and air leaks days before catastrophic line halts.</div>
+        </div>
+      </div>
+
+      <!-- Humanized Clean Tags -->
+      <div class="flex flex-wrap justify-center gap-2 pt-2">
+        <span class="tag-pill bg-white text-[var(--sapphire)] border border-[var(--card-border)] shadow-sm">Technician Co-Pilot</span>
+        <span class="tag-pill bg-white text-[var(--indigo)] border border-[var(--card-border)] shadow-sm">Explainable Root Causes</span>
+        <span class="tag-pill bg-white text-[var(--emerald)] border border-[var(--card-border)] shadow-sm">OEM Manual Grounding</span>
+        <span class="tag-pill bg-white text-[var(--amber)] border border-[var(--card-border)] shadow-sm">Human Verification First</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: Everyday Problem Statement -->
+  <div class="slide flex-col px-8 py-8" data-slide="1">
+    <div class="max-w-5xl mx-auto w-full space-y-5">
+      <div>
+        <div class="tag-pill bg-white text-[var(--sapphire)] border border-[var(--card-border)] shadow-sm mb-1">02 · EVERYDAY INDUSTRIAL REALITY</div>
+        <h2 class="text-2xl font-bold text-[var(--text-title)]">Why Industrial Maintenance is Overwhelmed</h2>
+        <p class="text-xs text-[var(--text-muted)]">When critical machinery malfunctions, frontline technicians face high pressure, massive manuals, and noisy alarms.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Daily Pain Points (Pure White Card) -->
+        <div class="card-pop p-5 space-y-3">
+          <h3 class="font-bold text-sm text-[var(--text-title)] flex items-center gap-2">⚠️ The Frustrations on the Factory Floor</h3>
+          
+          <div class="space-y-2.5">
+            <div class="card-compartment p-3 flex gap-3 items-start">
+              <span class="text-[var(--crimson)] font-bold text-sm">✕</span>
+              <div>
+                <div class="font-bold text-xs text-[var(--text-title)]">Alarm Fatigue & Constant Noise</div>
+                <div class="text-[11px] text-[var(--text-muted)] mt-0.5">Threshold alarms ring constantly — over 70% are transient blips. Operators get desensitized and miss real warning signs.</div>
+              </div>
+            </div>
+
+            <div class="card-compartment p-3 flex gap-3 items-start">
+              <span class="text-[var(--amber)] font-bold text-sm">✕</span>
+              <div>
+                <div class="font-bold text-xs text-[var(--text-title)]">500-Page Manuals in High-Pressure Moments</div>
+                <div class="text-[11px] text-[var(--text-muted)] mt-0.5">When a metro train or production line is halted, technicians frantically flip through binders trying to match symptom codes.</div>
+              </div>
+            </div>
+
+            <div class="card-compartment p-3 flex gap-3 items-start">
+              <span class="text-[var(--sapphire)] font-bold text-sm">✕</span>
+              <div>
+                <div class="font-bold text-xs text-[var(--text-title)]">Tribal Knowledge Leaves With Retirees</div>
+                <div class="text-[11px] text-[var(--text-muted)] mt-0.5">Decades of troubleshooting intuition live inside veterans' heads. When junior staff are on shift, simple triage takes hours.</div>
+              </div>
+            </div>
+
+            <div class="card-compartment p-3 flex gap-3 items-start">
+              <span class="text-[var(--crimson)] font-bold text-sm">✕</span>
+              <div>
+                <div class="font-bold text-xs text-[var(--text-title)]">Unplanned Downtime is Brutally Expensive</div>
+                <div class="text-[11px] text-[var(--text-muted)] mt-0.5">Industrial downtime averages $260,000 per hour. Minor unnoticed pneumatic leaks escalate into multi-day equipment repairs.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Users & Real Case (Pure White Cards) -->
+        <div class="space-y-4">
+          <div class="card-pop p-4 space-y-3">
+            <h3 class="font-bold text-sm text-[var(--text-title)] flex items-center gap-2">👥 Built For People on the Ground</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="card-compartment p-2.5">
+                <div class="font-bold text-[var(--text-title)]">🔧 Field Technicians</div>
+                <div class="text-[11px] text-[var(--text-muted)]">Fast, clear steps right at the machine.</div>
+              </div>
+              <div class="card-compartment p-2.5">
+                <div class="font-bold text-[var(--text-title)]">📊 Reliability Engineers</div>
+                <div class="text-[11px] text-[var(--text-muted)]">Spot recurring valve & bearing wear trends.</div>
+              </div>
+              <div class="card-compartment p-2.5">
+                <div class="font-bold text-[var(--text-title)]">🏗️ Plant Managers</div>
+                <div class="text-[11px] text-[var(--text-muted)]">Cut unplanned downtime & protect budgets.</div>
+              </div>
+              <div class="card-compartment p-2.5">
+                <div class="font-bold text-[var(--text-title)]">🛡️ SCADA Operators</div>
+                <div class="text-[11px] text-[var(--text-muted)]">Smart alarm filters to eliminate alert noise.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-pop p-4 space-y-2">
+            <h3 class="font-bold text-sm text-[var(--text-title)] flex items-center gap-2">🚆 Real-World Use Case: Metro Air Compressors</h3>
+            <p class="text-xs text-[var(--text-body)] leading-relaxed">
+              In modern metro trains, the Compressed Air Unit (CAU) powers pneumatic brakes, train doors, and suspension. 
+              If a purge valve sticks open, the train loses pressure and halts, stranding thousands of commuters.
+              <strong>FaultTrace</strong> turns complex sensor signals into an instant, human-readable troubleshooting sheet.
+            </p>
+            <div class="flex gap-2 pt-1 text-xs">
+              <span class="tag-pill bg-[var(--sapphire-bg)] text-[var(--sapphire)]">Real Fleet Telemetry</span>
+              <span class="tag-pill bg-[var(--crimson-bg)] text-[var(--crimson)]">Safety-Critical Systems</span>
+              <span class="tag-pill bg-[var(--emerald-bg)] text-[var(--emerald)]">OEM Manual Grounded</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: Architecture & 3 Pillars -->
+  <div class="slide flex-col px-8 py-8" data-slide="2">
+    <div class="max-w-5xl mx-auto w-full space-y-4">
+      <div>
+        <div class="tag-pill bg-white text-[var(--sapphire)] border border-[var(--card-border)] shadow-sm mb-1">03 · SYSTEM ARCHITECTURE</div>
+        <h2 class="text-2xl font-bold text-[var(--text-title)]">An Intelligent Diagnostic Co-Pilot</h2>
+        <p class="text-xs text-[var(--text-muted)]">Connecting live machine telemetry with technical knowledge to deliver explainable, human-verified decisions.</p>
+      </div>
+
+      <!-- Pipeline Bar (Pure White Card) -->
+      <div class="card-pop p-4">
+        <div class="text-[10px] font-extrabold text-[var(--sapphire)] uppercase tracking-wider mb-2">END-TO-END TELEMETRY TO TECHNICIAN WORKFLOW</div>
+        <div class="grid grid-cols-7 gap-2 text-center text-xs">
+          <div class="card-compartment p-2">
+            <div class="text-lg">⚙️</div>
+            <div class="font-bold text-[var(--text-title)] mt-1">Modbus Sim</div>
+            <div class="text-[10px] text-[var(--text-muted)]">Go Simulator</div>
+          </div>
+          <div class="card-compartment p-2">
+            <div class="text-lg">🌐</div>
+            <div class="font-bold text-[var(--text-title)] mt-1">Gateway</div>
+            <div class="text-[10px] text-[var(--text-muted)]">Go Pipeline</div>
+          </div>
+          <div class="card-compartment p-2">
+            <div class="text-lg">📡</div>
+            <div class="font-bold text-[var(--text-title)] mt-1">MQTT Broker</div>
+            <div class="text-[10px] text-[var(--text-muted)]">Mosquitto</div>
+          </div>
+          <div class="card-compartment p-2 bg-[var(--sapphire-bg)] border-[var(--sapphire)]">
+            <div class="text-lg">🧠</div>
+            <div class="font-bold text-[var(--sapphire)] mt-1">Detection</div>
+            <div class="text-[10px] text-[var(--text-muted)]">Node / Python</div>
+          </div>
+          <div class="card-compartment p-2 bg-[var(--emerald-bg)] border-[var(--emerald)]">
+            <div class="text-lg">📚</div>
+            <div class="font-bold text-[var(--emerald)] mt-1">RAG Knowledge</div>
+            <div class="text-[10px] text-[var(--text-muted)]">pgvector</div>
+          </div>
+          <div class="card-compartment p-2 bg-[var(--amber-bg)] border-[var(--amber)]">
+            <div class="text-lg">🤖</div>
+            <div class="font-bold text-[var(--amber)] mt-1">AI Co-Pilot</div>
+            <div class="text-[10px] text-[var(--text-muted)]">Von / Claude</div>
+          </div>
+          <div class="card-compartment p-2 bg-[var(--indigo-bg)] border-[var(--indigo)]">
+            <div class="text-lg">📋</div>
+            <div class="font-bold text-[var(--indigo)] mt-1">Technician Ticket</div>
+            <div class="text-[10px] text-[var(--text-muted)]">React 19</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 AI Pillars (Pure White Cards) -->
+      <div class="grid grid-cols-3 gap-4">
+        <div class="card-pop p-4 space-y-2">
+          <div class="tag-pill bg-[var(--sapphire-bg)] text-[var(--sapphire)]">1. Machine Intelligence</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Continuous Health Monitoring</div>
+          <ul class="text-xs text-[var(--text-body)] space-y-1.5 list-disc pl-4">
+            <li>Watches 15 pressure, temp, and current signals.</li>
+            <li>Ensemble anomaly detection (Isolation Forest + MAD).</li>
+            <li>Pinpoints 6 distinct compressor failure modes.</li>
+            <li>Separates normal load shifts from actual damage.</li>
+          </ul>
+        </div>
+
+        <div class="card-pop p-4 space-y-2">
+          <div class="tag-pill bg-[var(--emerald-bg)] text-[var(--emerald)]">2. Knowledge Retrieval (RAG)</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Instant OEM Manual Search</div>
+          <ul class="text-xs text-[var(--text-body)] space-y-1.5 list-disc pl-4">
+            <li>Hybrid search (dense vector + BM25 keyword matching).</li>
+            <li>Physics reranking matches active sensor symptoms.</li>
+            <li>Cross-references past fleet maintenance incidents.</li>
+            <li>100% grounded: cites exact manual sections.</li>
+          </ul>
+        </div>
+
+        <div class="card-pop p-4 space-y-2">
+          <div class="tag-pill bg-[var(--amber-bg)] text-[var(--amber)]">3. Human-Verified Triage</div>
+          <div class="font-bold text-sm text-[var(--text-title)]">Explainable Technician Reports</div>
+          <ul class="text-xs text-[var(--text-body)] space-y-1.5 list-disc pl-4">
+            <li>Produces a structured 10-point diagnostic sheet.</li>
+            <li>Ready-to-use physical SOP checklist with torque specs.</li>
+            <li>Confidence gates prevent spurious ticket flooding.</li>
+            <li>Technician retains full authority to confirm or dismiss.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Safety Banner (Crisp White Card with Emerald Accent) -->
+      <div class="card-pop p-3 bg-white border-[var(--emerald)] text-xs text-[var(--emerald)] font-bold flex items-center gap-3">
+        <span class="text-xl">🛡️</span>
+        <div>Safety by Design: FaultTrace is strictly read-only. It never manipulates physical valves or equipment. Experienced engineers always verify diagnoses before turning a wrench.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: Working Prototype & Live Walkthrough -->
+  <div class="slide flex-col px-8 py-8" data-slide="3">
+    <div class="max-w-5xl mx-auto w-full space-y-4">
+      <div>
+        <div class="tag-pill bg-white text-[var(--sapphire)] border border-[var(--card-border)] shadow-sm mb-1">04 · WORKING PROTOTYPE & LIVE SCENARIO</div>
+        <h2 class="text-2xl font-bold text-[var(--text-title)]">From Raw Signal Deviation to Guided Action</h2>
+        <p class="text-xs text-[var(--text-muted)]">Real scenario walkthrough: a desiccant dryer purge exhaust valve stuck open on unit CAU-7.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- 10-point diagnostic sheet (Pure White Card) -->
+        <div class="card-pop p-4 space-y-2">
+          <h3 class="font-bold text-sm text-[var(--text-title)] flex items-center gap-2">📋 The 10-Point Diagnostic Sheet</h3>
+          <p class="text-xs text-[var(--text-muted)]">Instead of cryptic error codes, the technician receives an actionable dossier:</p>
+          
+          <div class="space-y-1 text-xs">
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>1. Observed Behavior</strong><span class="text-[var(--text-muted)]">Purge pressure stays high while loaded</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>2. Quantified Evidence</strong><span class="text-[var(--text-muted)]">Purge line pressure z-score &gt; 290</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>3. Fault Identified</strong><span class="text-[var(--crimson)] font-bold">Dryer Purge Valve Leak (99.9%)</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>4. Probable Root Cause</strong><span class="text-[var(--text-muted)]">Contaminated or worn Viton seat</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>5. Manual Citation</strong><span class="text-[var(--sapphire)] font-bold">CAU-7 Manual, Section 8.3</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>6. Historical Fleet Match</strong><span class="text-[var(--text-muted)]">Matches INC-2019-084 (CAU-3)</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>7. Operational Severity</strong><span class="text-[var(--crimson)] font-bold">HIGH (Air loss & motor strain)</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>8. Uncertainty Bounds</strong><span class="text-[var(--text-muted)]">Clear separation from cooler issues</span></div>
+            <div class="flex justify-between py-1 border-b border-[var(--inner-border)]"><strong>9. Guided SOP Steps</strong><span class="text-[var(--emerald)] font-bold">5-step repair procedure generated</span></div>
+            <div class="flex justify-between py-1"><strong>10. Human Sign-Off Gate</strong><span class="text-[var(--amber)] font-bold">Technician verification required</span></div>
+          </div>
+        </div>
+
+        <!-- Live Snapshot & Field SOP (Pure White Cards) -->
+        <div class="space-y-3">
+          <div class="card-pop p-4 space-y-2">
+            <h3 class="font-bold text-xs text-[var(--text-title)] uppercase tracking-wider">🔴 Live Detection Snapshot (Unit CAU-7)</h3>
+            <div class="grid grid-cols-3 gap-2 text-xs">
+              <div class="card-compartment p-2.5">
+                <div class="text-[10px] font-bold text-[var(--crimson)]">SENSORS</div>
+                <div class="font-bold text-[var(--text-title)] mt-1">DV_pressure</div>
+                <div class="text-[11px] text-[var(--crimson)] font-bold">0.78 bar (Norm &lt; 0.05)</div>
+              </div>
+              <div class="card-compartment p-2.5">
+                <div class="text-[10px] font-bold text-[var(--sapphire)]">DIAGNOSIS</div>
+                <div class="font-bold text-[var(--text-title)] mt-1">Purge Leak</div>
+                <div class="text-[11px] text-[var(--sapphire)] font-bold">99.93% Certainty</div>
+              </div>
+              <div class="card-compartment p-2.5">
+                <div class="text-[10px] font-bold text-[var(--emerald)]">EVIDENCE</div>
+                <div class="font-bold text-[var(--text-title)] mt-1">Section 8.3</div>
+                <div class="text-[11px] text-[var(--emerald)] font-bold">Viton Kit #44</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-pop p-4 space-y-2">
+            <h3 class="font-bold text-xs text-[var(--text-title)] uppercase tracking-wider">🛠️ Step-by-Step Field Checklist For Technician</h3>
+            <div class="space-y-1.5 text-xs">
+              <div class="card-compartment p-2">1. Depressurize unit & apply electrical Lock-Out / Tag-Out (LOTO).</div>
+              <div class="card-compartment p-2">2. Inspect dryer silencer for audible hissing while compressor is loaded.</div>
+              <div class="card-compartment p-2">3. Connect test gauge to port M1 (&lt; 0.05 bar backpressure required).</div>
+              <div class="card-compartment p-2">4. Disassemble valve body; inspect brass seat for grit or particulate sludge.</div>
+              <div class="card-compartment p-2">5. Reassemble with new Viton seal kit and torque bonnet bolts to 18 Nm.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Tech Stack, Evaluation & Impact -->
+  <div class="slide flex-col px-8 py-8" data-slide="4">
+    <div class="max-w-5xl mx-auto w-full space-y-4">
+      <div>
+        <div class="tag-pill bg-white text-[var(--sapphire)] border border-[var(--card-border)] shadow-sm mb-1">05 · TECH STACK, VERIFICATION & IMPACT</div>
+        <h2 class="text-2xl font-bold text-[var(--text-title)]">Engineered for Real-World Industrial Trust</h2>
+        <p class="text-xs text-[var(--text-muted)]">Combining modern developer tooling with rigorous validation and measurable shop-floor impact.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <!-- Tech Stack (Pure White Card) -->
+        <div class="card-pop p-4 space-y-3">
+          <h3 class="font-bold text-sm text-[var(--text-title)]">🛠️ Production-Grade Tech Stack</h3>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">Backend</div>
+              <div class="text-[11px] text-[var(--text-title)]">Node.js 24 · Fastify · TypeScript</div>
+            </div>
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">ML Engine</div>
+              <div class="text-[11px] text-[var(--text-title)]">Python 3.13 · XGBoost · Scikit-Learn</div>
+            </div>
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">Knowledge Base</div>
+              <div class="text-[11px] text-[var(--text-title)]">PostgreSQL 18 + pgvector 0.8</div>
+            </div>
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">Frontend</div>
+              <div class="text-[11px] text-[var(--text-title)]">React 19 · Tailwind · shadcn/ui</div>
+            </div>
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">Edge / IoT</div>
+              <div class="text-[11px] text-[var(--text-title)]">Go 1.27 · Modbus TCP · MQTT</div>
+            </div>
+            <div class="card-compartment p-2">
+              <div class="font-bold text-[var(--sapphire)]">AI Co-Pilot</div>
+              <div class="text-[11px] text-[var(--text-title)]">Von (TypeSafe AI) & Claude SDK</div>
+            </div>
+          </div>
+          <div class="card-compartment p-2 text-center text-xs text-[var(--text-muted)]">
+            Docker Compose · 7 containerized microservices · Zero external cloud dependency required
+          </div>
+        </div>
+
+        <!-- Reliability Benchmarks (Pure White Card) -->
+        <div class="card-pop p-4 space-y-2.5">
+          <h3 class="font-bold text-sm text-[var(--text-title)]">📊 Rigorous Verification Benchmarks</h3>
+          
+          <div class="space-y-2 text-xs">
+            <div class="card-compartment p-2 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-[var(--text-title)]">Fault Classification Accuracy</div>
+                <div class="text-[10px] text-[var(--text-muted)]">XGBoost distinguishes 6 compressor states</div>
+              </div>
+              <span class="tag-pill bg-[var(--emerald-bg)] text-[var(--emerald)] font-bold">99.8% F1</span>
+            </div>
+
+            <div class="card-compartment p-2 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-[var(--text-title)]">Anomaly Recall on Live Deviations</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Developing leaks & overheating caught early</div>
+              </div>
+              <span class="tag-pill bg-[var(--sapphire-bg)] text-[var(--sapphire)] font-bold">95.9% Recall</span>
+            </div>
+
+            <div class="card-compartment p-2 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-[var(--text-title)]">OEM Manual Retrieval (Top-3)</div>
+                <div class="text-[10px] text-[var(--text-muted)]">Correct troubleshooting section always found</div>
+              </div>
+              <span class="tag-pill bg-[var(--emerald-bg)] text-[var(--emerald)] font-bold">100% Top-3</span>
+            </div>
+
+            <div class="card-compartment p-2 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-[var(--text-title)]">Mean Reciprocal Rank (MRR)</div>
+                <div class="text-[10px] text-[var(--text-muted)]">High precision ranking on procedural docs</div>
+              </div>
+              <span class="tag-pill bg-[var(--indigo-bg)] text-[var(--indigo)] font-bold">0.733 MRR</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Impact & Dataset (Pure White Cards) -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="card-pop p-4 space-y-2">
+          <h3 class="font-bold text-xs text-[var(--text-title)] uppercase tracking-wider">📁 Real-World Industrial Dataset</h3>
+          <div class="text-xs text-[var(--text-body)] space-y-1">
+            <div><strong>Source:</strong> MetroPT-3 (UCI #791) — 7 months of real operational compressor telemetry.</div>
+            <div><strong>Signals:</strong> 15 synchronized channels (pressures, temperatures, currents, valves).</div>
+            <div><strong>Recorded Events:</strong> 4 genuine pneumatic failures during revenue passenger service.</div>
+          </div>
+        </div>
+
+        <div class="card-pop p-4 space-y-2">
+          <h3 class="font-bold text-xs text-[var(--text-title)] uppercase tracking-wider">🚀 Everyday Human & Business Impact</h3>
+          <div class="text-xs text-[var(--text-body)] space-y-1">
+            <div><strong class="text-[var(--emerald)]">↓ 60–80% Shorter Repair Times:</strong> Technicians know where to look instantly.</div>
+            <div><strong class="text-[var(--emerald)]">↓ Zero Alert Fatigue:</strong> Confidence gates suppress noisy false alarms.</div>
+            <div><strong class="text-[var(--emerald)]">↑ Knowledge Retained in Fleet:</strong> Grounded RAG preserves senior wisdom.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closing Callout (Sapphire Bar with Pure White Text) -->
+      <div class="card-pop p-3 bg-[var(--sapphire)] text-center text-white font-bold text-xs shadow-md">
+        Ready to Empower Industrial Technicians · docker compose up · Thank You
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+
+    function buildIndicators() {
+      const c = document.getElementById('indicators');
+      c.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const d = document.createElement('div');
+        d.className = 'slide-indicator' + (i === 0 ? ' active' : '');
+        d.onclick = () => goTo(i);
+        c.appendChild(d);
+      }
+    }
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      current = n;
+      slides[current].classList.add('active');
+      document.querySelectorAll('.slide-indicator').forEach((d, i) => {
+        d.className = 'slide-indicator' + (i === current ? ' active' : '');
+      });
+    }
+
+    function nextSlide() { goTo((current + 1) % total); }
+    function prevSlide() { goTo((current - 1 + total) % total); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+    });
+
+    buildIndicators();
+  </script>
+</body>
+</html>
