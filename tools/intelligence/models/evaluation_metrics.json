@@ -1,0 +1,104 @@
+{
+  "timestamp": "2026-11-14T11:42:34Z",
+  "dataset": "MetroPT-3 (UCI 791) + Verified Injections",
+  "samples_evaluated": 1600,
+  "anomaly_detection": {
+    "model": "Hybrid (IsolationForest + RobustMAD)",
+    "precision": 0.7787,
+    "recall": 0.9587,
+    "f1_score": 0.8594,
+    "false_positive_rate": 0.2725
+  },
+  "fault_classification": {
+    "xgboost": {
+      "macro_precision": 0.9979,
+      "macro_recall": 0.9979,
+      "macro_f1": 0.9979,
+      "confusion_matrix": [
+        [
+          800,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          160,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          160,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          160,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          158,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          160
+        ]
+      ]
+    },
+    "random_forest": {
+      "macro_precision": 1.0,
+      "macro_recall": 1.0,
+      "macro_f1": 1.0
+    }
+  },
+  "rag_reranking": {
+    "recall_at_1": 0.6,
+    "recall_at_3": 1.0,
+    "mean_reciprocal_rank": 0.7333
+  },
+  "feature_count": 22,
+  "feature_names": [
+    "TP2",
+    "TP3",
+    "H1",
+    "DV_pressure",
+    "Reservoirs",
+    "Oil_temperature",
+    "Motor_current",
+    "COMP",
+    "DV_eletric",
+    "Towers",
+    "LPS",
+    "Oil_level",
+    "diff_discharge_line",
+    "diff_separator_line",
+    "diff_reservoir_line",
+    "mode_loaded",
+    "mode_unloaded",
+    "mode_off",
+    "purge_leak_indicator",
+    "oil_temp_rise_rate",
+    "line_press_slope",
+    "current_load_ratio"
+  ]
+}

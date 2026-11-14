@@ -1,0 +1,119 @@
+{
+  "detected_abnormal_behaviour": "Machine cau-7 exhibits anomalous operation (Abnormal machine behavior detected (Anomaly Score: 0.68).) primarily driven by signal deviations in: DV_pressure (z=291.6), line_press_slope (z=2.7), TP3 (z=2.0).",
+  "observed_sensor_evidence": {
+    "current_readings": {
+      "TP2": 9.85,
+      "TP3": 6.82,
+      "DV_pressure": 0.78,
+      "Motor_current": 3.84,
+      "COMP": 0.0,
+      "DV_eletric": 1.0
+    },
+    "anomalous_features": [
+      {
+        "signal": "DV_pressure",
+        "z_deviation": 291.59210205078125
+      },
+      {
+        "signal": "line_press_slope",
+        "z_deviation": 2.7267699241638184
+      },
+      {
+        "signal": "TP3",
+        "z_deviation": 2.0168495178222656
+      }
+    ],
+    "machine_mode": "loaded"
+  },
+  "potential_fault_categories": [
+    {
+      "fault_id": "dryer_purge_leak",
+      "probability": 0.9993,
+      "is_benign": false
+    },
+    {
+      "fault_id": "normal_operation",
+      "probability": 0.0003,
+      "is_benign": true
+    },
+    {
+      "fault_id": "downstream_air_leak",
+      "probability": 0.0001,
+      "is_benign": false
+    },
+    {
+      "fault_id": "oil_cooler_fouled",
+      "probability": 0.0001,
+      "is_benign": false
+    }
+  ],
+  "most_likely_root_cause": "Dryer purge valve seating failure. Physical mechanism: Elevated purge pressure (>0.25 bar) during loaded state directly matches purge valve seating failure signature. Direct match with triggered symptom key 'dryer_purge_leak'.",
+  "supporting_manual_references": [
+    {
+      "document": "CAU-7 Service and Maintenance Manual",
+      "section": "Section 8.3: Stays loaded and does not reach cut-out",
+      "relevance_score": "0.85",
+      "rationale": "Elevated purge pressure (>0.25 bar) during loaded state directly matches purge valve seating failure signature. Direct match with triggered symptom key 'dryer_purge_leak'."
+    },
+    {
+      "document": "CAU-7 Service and Maintenance Manual",
+      "section": "Section 8.1: Rapid line pressure decay",
+      "relevance_score": "0.30",
+      "rationale": "Candidate matches overall hydraulic and pneumatic pattern."
+    },
+    {
+      "document": "CAU-7 Service and Maintenance Manual",
+      "section": "Section 8.7: High oil operating temperature",
+      "relevance_score": "0.15",
+      "rationale": "Candidate matches overall hydraulic and pneumatic pattern."
+    }
+  ],
+  "similar_historical_incidents": [
+    {
+      "incident_id": "INC-2019-084",
+      "machine_id": "CAU-3",
+      "similarity": "99.0%",
+      "past_fault": "dryer_purge_leak",
+      "past_root_cause": "Desiccant dryer purge exhaust solenoid valve seat contaminated with particulate debris, preventing tight closure during compression cycle.",
+      "verified_action": "Disassembled purge solenoid valve, cleaned brass seat, replaced internal Viton seal, and verified pressure drop below 0.05 bar."
+    },
+    {
+      "incident_id": "INC-2020-062",
+      "machine_id": "CAU-3",
+      "similarity": "87.4%",
+      "past_fault": "dryer_tower_switching_failure",
+      "past_root_cause": "Pneumatic pilot actuator on shuttle valve Tower 2 seized due to moisture ingress in the pilot line.",
+      "verified_action": "Rebuilt shuttle valve actuator, replaced desiccant bed in Tower 2 pre-filter, and calibrated switching timer."
+    }
+  ],
+  "severity_assessment": {
+    "level": "high",
+    "score": 3,
+    "urgency": "Immediate Inspection Required"
+  },
+  "confidence_and_uncertainty": {
+    "ml_anomaly_score": 0.678,
+    "model_classification_confidence": 0.999,
+    "retrieval_relevance_score": 0.85,
+    "margin_to_second_candidate": 0.999,
+    "uncertainty_flag": false,
+    "uncertainty_rationale": "High confidence separation from alternatives"
+  },
+  "recommended_diagnostic_procedures": [
+    "1. Depressurize unit and lock out electrical motor supply (LOTO protocol).",
+    "2. Inspect dryer purge silencer for continuous audible exhaust while compressor is in loaded state.",
+    "3. Measure purge line backpressure using calibrated test gauge at port M1 (must be < 0.05 bar when closed).",
+    "4. Verify solenoid coil energization with magnetic flux indicator.",
+    "5. Remove purge valve body and inspect Viton seat for particulate indentations or oil emulsion sludge.",
+    "6. Reassemble with new O-ring kit (Part #CAU-SK-44) and torque bonnet bolts to 18 Nm."
+  ],
+  "human_verification_requirement": {
+    "required": true,
+    "reason": "Safety critical pneumatic system: automated changes to physical valves strictly prohibited.",
+    "technician_action": "Review ticket, verify diagnostic checklist in the field, and sign off as 'verified_correct' or 'false_alarm'.",
+    "confidence_gate_tier": "ticket"
+  },
+  "report_id": "REP-1794636754",
+  "unit_id": "cau-7",
+  "generated_at": "2026-11-14T06:12:34.798389+00:00"
+}
